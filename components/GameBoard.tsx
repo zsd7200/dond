@@ -34,8 +34,12 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
     const [offerActive, setOfferActive] = useState<boolean>(false);
     const [blockPicking, setBlockPicking] = useState<boolean>(false);
     const [round, setRound] = useState<number>(1);
+    const [picksLeft, setPicksLeft] = useState<number>(6);
     const [winState, setWinState] = useState<boolean>(false);
     const [confettiPieces, setConfettiPieces] = useState<number>(200);
+    const [yourCase, setYourCase] = useState<number>(-100);
+    const [chooseMsg, setChooseMsg] = useState<boolean>(true);
+    const [swapMsg, setSwapMsg] = useState<boolean>(false);
     const { width, height } = useWindowSize();
 
     // fisher-yates shuffle
@@ -78,14 +82,38 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
         }
 
         if (casesLeft == 21 || casesLeft == 16 || casesLeft == 12 || casesLeft == 9 || casesLeft == 7 || casesLeft <= 6) {
-            setRound(round + 1);
+            switch (round) {
+                case 1:
+                    setPicksLeft(5);
+                    break;
+                case 2:
+                    setPicksLeft(4);
+                    break;
+                case 3:
+                    setPicksLeft(3);
+                    break;
+                case 4:
+                    setPicksLeft(2);
+                    break;
+                case 5:
+                default:
+                    setPicksLeft(1);
+                    break;
+            }
 
-            if (casesLeft > 2)
-                calculateBankerOffer();
+            setRound(round + 1);
+            if (casesLeft > 2) {
+                return calculateBankerOffer();
+            }
         }
     }
 
-    const disableScoreboardValue = (val: number) => {
+    const disableScoreboardValue = (val: number, caseNumber: number) => {
+        if (yourCase < 0) {
+            return setYourCase(caseNumber);
+        }
+        if (yourCase == caseNumber) return;
+
         const inLeft: boolean = leftValues.some((obj) => obj.value === val);
         
         const handleScoreboard = (scoreboardValues: Array<ScoreboardValueType>) => {
@@ -97,7 +125,7 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
 
         const tmpScoreboard: Array<ScoreboardValueType> = handleScoreboard((inLeft) ? leftValues : rightValues);
         setCasesLeft(casesLeft - 1);
-        console.log(casesLeft);
+        setPicksLeft(picksLeft - 1);
         advanceRound(val);
         return (inLeft) ? setLeftValues(tmpScoreboard) : setRightValues(tmpScoreboard);
     };
@@ -158,6 +186,11 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
     const noDeal = () => {
         setOfferActive(false);
         setBlockPicking(false);
+
+        if (casesLeft == 2) {
+            setSwapMsg(true);
+            setYourCase(100);
+        }
     }
 
     const deal = () => {
@@ -211,6 +244,54 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
                         </div>
                     }
                     <AnimatePresence>
+                        {chooseMsg &&
+                            <div className="absolute z-30 size-full bg-black/50 flex items-center justify-center">
+                                    <motion.div 
+                                        className="absolute z-50 size-full flex flex-col items-center justify-center"
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                        exit={{ scale: 0 }}
+                                        >
+                                        <span className="font-bold text-2xl bg-black/50 px-4 py-1 rounded-md">The first case you choose will be your case.</span>
+                                        <span className="font-bold text-2xl bg-black/50 px-4 py-1 rounded-md">You will not be able to switch cases until there are only two left.</span>
+                                        <span className="font-bold text-3xl bg-black/50 px-4 py-1 rounded-md">Choose wisely.</span>
+                                        <div className="mt-4 flex gap-x-2 font-bold text-2xl">
+                                            <button
+                                                className="uppercase bg-yellow-400 text-black px-2 hover:cursor-pointer" 
+                                                onClick={() => setChooseMsg(false)}>
+                                                    Understood
+                                            </button>
+                                        </div>
+                                    </motion.div>
+                            </div>
+                        }
+                    </AnimatePresence>
+                    <AnimatePresence>
+                        {swapMsg &&
+                            <div className="absolute z-30 size-full bg-black/50 flex items-center justify-center">
+                                    <motion.div 
+                                        className="absolute z-50 size-full flex flex-col items-center justify-center"
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                        exit={{ scale: 0 }}
+                                        >
+                                        <span className="font-bold text-2xl bg-black/50 px-4 py-1 rounded-md">Your case has been unlocked.</span>
+                                        <span className="font-bold text-2xl bg-black/50 px-4 py-1 rounded-md">You must now choose which case to open.</span>
+                                        <span className="font-bold text-2xl bg-black/50 px-4 py-1 rounded-md">The last case you open is your prize.</span>
+                                        <span className="font-bold text-3xl bg-black/50 px-4 py-1 rounded-md">Choose wisely.</span>
+                                        <div className="mt-4 flex gap-x-2 font-bold text-2xl">
+                                            <button
+                                                className="uppercase bg-yellow-400 text-black px-2 hover:cursor-pointer" 
+                                                onClick={() => setSwapMsg(false)}>
+                                                    Understood
+                                            </button>
+                                        </div>
+                                    </motion.div>
+                            </div>
+                        }
+                    </AnimatePresence>
+
+                    <AnimatePresence>
                         {offerActive && 
                             <motion.div 
                                 className="absolute z-50 size-full flex flex-col items-center justify-center"
@@ -222,11 +303,16 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
                                 <div className="mt-4 flex gap-x-2 font-bold text-2xl">
                                     <button
                                         className="uppercase bg-yellow-400 text-black px-2 hover:cursor-pointer" 
-                                        onClick={deal}>Deal</button>
+                                        onClick={deal}
+                                    >
+                                            Deal
+                                    </button>
                                     <button 
                                         className="uppercase border-6 border-yellow-400 text-yellow-400 bg-black px-2 hover:cursor-pointer"
                                         onClick={noDeal}
-                                    >No Deal</button>
+                                    >
+                                        No Deal
+                                    </button>
                                 </div>
                             </motion.div>
                         }
@@ -249,8 +335,8 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
                     </ul>
                     <ul className="flex flex-wrap gap-5 justify-center">
                         {values.map((val, i) => (
-                            <li key={'case-' + i} onClick={() => { disableScoreboardValue(val); }}>
-                                <Case number={i + 1} value={val} />
+                            <li key={'case-' + i} onClick={() => { disableScoreboardValue(val, i + 1); }}>
+                                <Case number={i + 1} value={val} yourCase={yourCase} />
                             </li>
                         ))}
                     </ul>
@@ -273,7 +359,10 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
                 <div className="mt-10 flex flex-col items-center">
                     <div className="pointer-events-none">
                         {(round > 0 && !winState) &&
-                            <span>Round {round}</span>
+                            <div className="flex flex-col text-center">
+                                <span>Round {round}</span>
+                                <span>{picksLeft} picks remaining</span>
+                            </div>
                         }
                         {(round == 0 || winState) &&
                             <span>Game Over</span>

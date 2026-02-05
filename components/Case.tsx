@@ -7,12 +7,14 @@ import { formatValue } from './util/NumberUtil';
 type CaseProps = {
     number: number,
     value: number,
+    yourCase: number,
 };
 
-export default function Case({ number, value }: CaseProps) {
+export default function Case({ number, value, yourCase }: CaseProps) {
     const [renderBtn, setRenderBtn] = useState<Boolean>(true);
 
     const hideButton = () => {
+        if (yourCase < 0 || number === yourCase) return;
         setRenderBtn(false);
     };
 
@@ -24,8 +26,8 @@ export default function Case({ number, value }: CaseProps) {
             <AnimatePresence>
                 { renderBtn && 
                     <motion.button 
-                        className="relative z-10 outer-case-bg text-black text-4xl font-bold 
-                        h-full w-full flex items-center justify-center rounded-lg hover:cursor-pointer"
+                        className={`relative z-10 outer-case-bg text-black text-4xl font-bold 
+                        h-full w-full flex items-center justify-center rounded-lg hover:cursor-pointer ${number === yourCase ? 'brightness-75' : ''}`}
                         whileHover={{ scale: 1.1 }}
                         exit={{ opacity: 0 }}
                     >
