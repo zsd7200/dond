@@ -152,7 +152,7 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
         setOffer(roundedOffer);
         setBlockPicking(true);
 
-        setTimeout(() => setOfferActive(true), 0);
+        setTimeout(() => setOfferActive(true), 2500);
     }
 
     const noDeal = () => {
