@@ -20,13 +20,13 @@ export default function Case({ number, value, yourCase }: CaseProps) {
 
     return (
         <div 
-            className="relative flex gap-x-3 h-28 w-28" 
+            className="relative flex size-16 xl:size-28" 
             onClick={hideButton}
         >
             <AnimatePresence>
                 { renderBtn && 
                     <motion.button 
-                        className={`relative z-10 outer-case-bg text-black text-4xl font-bold 
+                        className={`relative z-10 outer-case-bg text-black text-3xl xl:text-4xl font-bold 
                         h-full w-full flex items-center justify-center rounded-lg hover:cursor-pointer ${number === yourCase ? 'brightness-75' : ''}`}
                         whileHover={{ scale: 1.1 }}
                         exit={{ opacity: 0 }}
@@ -36,7 +36,7 @@ export default function Case({ number, value, yourCase }: CaseProps) {
                 }
             </AnimatePresence>
             <div 
-                className="absolute z-0 bg-zinc-900 text-white text-md font-bold 
+                className="absolute z-0 bg-zinc-900 text-white text-[0.7rem] xl:text-md font-bold 
                 h-full w-full flex items-center justify-center rounded-lg"
             >
                 <span className="bg-zinc-700 mx-2 w-full text-center rounded-lg">${formatValue(value)}</span>

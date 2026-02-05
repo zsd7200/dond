@@ -215,11 +215,9 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
                 <div className="flex items-center gap-x-4 relative">
                     {winState && 
                         <div className="absolute z-50 size-full bg-black/50 flex items-center justify-center">
-                            <div>
-                                <span className="font-bold text-3xl bg-black/50 px-4 py-1 rounded-md pointer-events-none">
-                                    You've won ${formatValue(offer)}!
-                                </span>
-                            </div>
+                            <span className="font-bold text-center text-3xl bg-black/50 px-4 py-1 rounded-md pointer-events-none">
+                                You've won ${formatValue(offer)}!
+                            </span>
                         </div>
                     }
                     {blockPicking && 
@@ -247,14 +245,14 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
                         {chooseMsg &&
                             <div className="absolute z-30 size-full bg-black/50 flex items-center justify-center">
                                     <motion.div 
-                                        className="absolute z-50 size-full flex flex-col items-center justify-center"
+                                        className="absolute z-50 size-full flex flex-col items-center justify-center text-center"
                                         initial={{ scale: 0 }}
                                         animate={{ scale: 1 }}
                                         exit={{ scale: 0 }}
                                         >
-                                        <span className="font-bold text-2xl bg-black/50 px-4 py-1 rounded-md">The first case you choose will be your case.</span>
-                                        <span className="font-bold text-2xl bg-black/50 px-4 py-1 rounded-md">You will not be able to switch cases until there are only two left.</span>
-                                        <span className="font-bold text-3xl bg-black/50 px-4 py-1 rounded-md">Choose wisely.</span>
+                                        <span className="font-bold text-lg xl:text-2xl bg-black/50 px-4 py-1 rounded-md">The first case you choose will be your case.</span>
+                                        <span className="font-bold text-lg xl:text-2xl bg-black/50 px-4 py-1 rounded-md">You will not be able to switch cases until there are only two left.</span>
+                                        <span className="font-bold text-xl xl:text-3xl bg-black/50 px-4 py-1 rounded-md">Choose wisely.</span>
                                         <div className="mt-4 flex gap-x-2 font-bold text-2xl">
                                             <button
                                                 className="uppercase bg-yellow-400 text-black px-2 hover:cursor-pointer" 
@@ -270,15 +268,15 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
                         {swapMsg &&
                             <div className="absolute z-30 size-full bg-black/50 flex items-center justify-center">
                                     <motion.div 
-                                        className="absolute z-50 size-full flex flex-col items-center justify-center"
+                                        className="absolute z-50 size-full flex flex-col items-center justify-center text-center"
                                         initial={{ scale: 0 }}
                                         animate={{ scale: 1 }}
                                         exit={{ scale: 0 }}
                                         >
-                                        <span className="font-bold text-2xl bg-black/50 px-4 py-1 rounded-md">Your case has been unlocked.</span>
-                                        <span className="font-bold text-2xl bg-black/50 px-4 py-1 rounded-md">You must now choose which case to open.</span>
-                                        <span className="font-bold text-2xl bg-black/50 px-4 py-1 rounded-md">The last case you open is your prize.</span>
-                                        <span className="font-bold text-3xl bg-black/50 px-4 py-1 rounded-md">Choose wisely.</span>
+                                        <span className="font-bold text-lg xl:text-2xl bg-black/50 px-4 py-1 rounded-md">Your case has been unlocked.</span>
+                                        <span className="font-bold text-lg xl:text-2xl bg-black/50 px-4 py-1 rounded-md">You must now choose which case to open.</span>
+                                        <span className="font-bold text-lg xl:text-2xl bg-black/50 px-4 py-1 rounded-md">The last case you open is your prize.</span>
+                                        <span className="font-bold text-xl xl:text-3xl bg-black/50 px-4 py-1 rounded-md">Choose wisely.</span>
                                         <div className="mt-4 flex gap-x-2 font-bold text-2xl">
                                             <button
                                                 className="uppercase bg-yellow-400 text-black px-2 hover:cursor-pointer" 
@@ -317,44 +315,45 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
                             </motion.div>
                         }
                     </AnimatePresence>
-
-                    <ul className="flex flex-col gap-y-1">
-                        {leftValues.map(({ value, active }, i) => (
-                            <li 
-                                key={'scoreboard-left-' + i} 
-                                className={
-                                    `scoreboard-bg pointer-events-none 
-                                    ${active ? 'text-black' : 'text-white brightness-50'} 
-                                    w-28 px-2 flex justify-between rounded-sm`
-                                }
-                            >
-                                <span className="text-left">$</span>
-                                <span className="text-right">{formatValue(value)}</span>
-                            </li>
-                        ))}
-                    </ul>
-                    <ul className="flex flex-wrap gap-5 justify-center">
-                        {values.map((val, i) => (
-                            <li key={'case-' + i} onClick={() => { disableScoreboardValue(val, i + 1); }}>
-                                <Case number={i + 1} value={val} yourCase={yourCase} />
-                            </li>
-                        ))}
-                    </ul>
-                    <ul className="flex flex-col gap-y-1">
-                        {rightValues.map(({ value, active }, i) => (
-                            <li 
-                                key={'scoreboard-right-' + i} 
-                                className={
-                                    `scoreboard-bg pointer-events-none 
-                                    ${active ? 'text-black' : 'text-white brightness-50'} 
-                                    w-28 px-2 flex justify-between rounded-sm`
-                                }
-                            >
-                                <span className="text-left">$</span>
-                                <span className="text-right">{formatValue(value)}</span>
-                            </li>
-                        ))}
-                    </ul>
+                    <div className="flex flex-wrap xl:flex-nowrap xl:flex-row items-center justify-center gap-x-4 gap-y-4 relative">
+                        <ul className="flex flex-col gap-y-1 order-2 xl:order-1">
+                            {leftValues.map(({ value, active }, i) => (
+                                <li 
+                                    key={'scoreboard-left-' + i} 
+                                    className={
+                                        `scoreboard-bg pointer-events-none 
+                                        ${active ? 'text-black' : 'text-white brightness-50'} 
+                                        w-28 text-sm xl:text-md px-2 flex justify-between rounded-sm`
+                                    }
+                                >
+                                    <span className="text-left">$</span>
+                                    <span className="text-right">{formatValue(value)}</span>
+                                </li>
+                            ))}
+                        </ul>
+                        <ul className="flex basis-full xl:basis-auto flex-wrap gap-2 xl:gap-5 justify-center order-1 xl:order-2">
+                            {values.map((val, i) => (
+                                <li key={'case-' + i} onClick={() => { disableScoreboardValue(val, i + 1); }}>
+                                    <Case number={i + 1} value={val} yourCase={yourCase} />
+                                </li>
+                            ))}
+                        </ul>
+                        <ul className="flex flex-col gap-y-1 order-3 xl:order-3">
+                            {rightValues.map(({ value, active }, i) => (
+                                <li 
+                                    key={'scoreboard-right-' + i} 
+                                    className={
+                                        `scoreboard-bg pointer-events-none 
+                                        ${active ? 'text-black' : 'text-white brightness-50'} 
+                                        w-28 text-sm xl:text-md px-2 flex justify-between rounded-sm`
+                                    }
+                                >
+                                    <span className="text-left">$</span>
+                                    <span className="text-right">{formatValue(value)}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
                 <div className="mt-10 flex flex-col items-center">
                     <div className="pointer-events-none">
