@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --caseBg: #f0f0f0;
+  --caseLine: #dedede;
 }
 
 @theme inline {
@@ -23,4 +25,27 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.outer-case-bg {
+  background: linear-gradient(
+    var(--caseBg) 0, 
+    var(--caseBg) 10%, 
+    var(--caseLine) 10%, 
+    var(--caseLine) 11%, 
+    var(--caseBg) 11%, 
+    var(--caseBg) 17.5%,
+    var(--caseLine) 17.5%, 
+    var(--caseLine) 18.5%,
+    var(--caseBg) 18.5%, 
+    var(--caseBg) 81.5%,
+    var(--caseLine) 81.5%, 
+    var(--caseLine) 82.5%,
+    var(--caseBg) 82.5%, 
+    var(--caseBg) 89%,
+    var(--caseLine) 89%, 
+    var(--caseLine) 90%,
+    var(--caseBg) 90%, 
+    var(--caseBg) 100%
+  );
 }
