@@ -28,6 +28,7 @@ body {
 }
 
 .outer-case-bg {
+  background: var(--caseBg);
   background: linear-gradient(
     var(--caseBg) 0, 
     var(--caseBg) 10%, 
@@ -48,4 +49,9 @@ body {
     var(--caseBg) 90%, 
     var(--caseBg) 100%
   );
+}
+
+.scoreboard-bg {
+  background: #C4A434;
+  background: linear-gradient(350deg,#C4A434 0%, #F4E4A4 50%, #C4A434 100%);
 }

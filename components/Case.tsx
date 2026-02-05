@@ -1,7 +1,8 @@
 'use client';
 
-import { AnimatePresence, motion } from 'motion/react';
 import { useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { formatValue } from './util/NumberUtil';
 
 type CaseProps = {
     number: number,
@@ -14,10 +15,6 @@ export default function Case({ number, value }: CaseProps) {
     const hideButton = () => {
         setRenderBtn(false);
     };
-
-    const formatValue = (val: number) => {
-        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
 
     return (
         <div 
