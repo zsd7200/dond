@@ -1,4 +1,4 @@
-# Deal or No Deal
+# [Deal or No Deal](https://dond-xi.vercel.app/)
 
 ## Getting Started
 1. Clone this repository.
