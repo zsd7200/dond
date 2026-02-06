@@ -214,14 +214,14 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
             <div className="flex flex-col">
                 <div className="flex items-center gap-x-4 relative">
                     {winState && 
-                        <div className="absolute z-50 size-full bg-black/50 flex items-center justify-center">
-                            <span className="font-bold text-center text-3xl bg-black/50 px-4 py-1 rounded-md pointer-events-none">
+                        <div className="absolute z-50 size-full bg-white/50 dark:bg-black/50 flex items-center justify-center">
+                            <span className="font-bold text-center text-3xl bg-white/50 dark:bg-black/50 px-4 py-1 rounded-md pointer-events-none">
                                 You've won ${formatValue(offer)}!
                             </span>
                         </div>
                     }
                     {blockPicking && 
-                        <div className="absolute z-30 size-full bg-black/50 flex items-center justify-center">
+                        <div className="absolute z-30 size-full bg-white/50 dark:bg-black/50 flex items-center justify-center">
                             <AnimatePresence>
                                 {!offerActive && 
                                     <motion.span
@@ -243,16 +243,16 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
                     }
                     <AnimatePresence>
                         {chooseMsg &&
-                            <div className="absolute z-30 size-full bg-black/50 flex items-center justify-center">
+                            <div className="absolute z-30 size-full bg-white/50 dark:bg-black/50 flex items-center justify-center">
                                     <motion.div 
                                         className="absolute z-50 size-full flex flex-col items-center justify-center text-center"
                                         initial={{ scale: 0 }}
                                         animate={{ scale: 1 }}
                                         exit={{ scale: 0 }}
                                         >
-                                        <span className="font-bold text-lg xl:text-2xl bg-black/50 px-4 py-1 rounded-md">The first case you choose will be your case.</span>
-                                        <span className="font-bold text-lg xl:text-2xl bg-black/50 px-4 py-1 rounded-md">You will not be able to switch cases until there are only two left.</span>
-                                        <span className="font-bold text-xl xl:text-3xl bg-black/50 px-4 py-1 rounded-md">Choose wisely.</span>
+                                        <span className="font-bold text-lg xl:text-2xl bg-white/50 dark:bg-black/50 px-4 py-1 rounded-md">The first case you choose will be your case.</span>
+                                        <span className="font-bold text-lg xl:text-2xl bg-white/50 dark:bg-black/50 px-4 py-1 rounded-md">You will not be able to switch cases until there are only two left.</span>
+                                        <span className="font-bold text-xl xl:text-3xl bg-white/50 dark:bg-black/50 px-4 py-1 rounded-md">Choose wisely.</span>
                                         <div className="mt-4 flex gap-x-2 font-bold text-2xl">
                                             <button
                                                 className="uppercase bg-yellow-400 text-black px-2 hover:cursor-pointer" 
@@ -266,17 +266,17 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
                     </AnimatePresence>
                     <AnimatePresence>
                         {swapMsg &&
-                            <div className="absolute z-30 size-full bg-black/50 flex items-center justify-center">
+                            <div className="absolute z-30 size-full bg-white/50 dark:bg-black/50 flex items-center justify-center">
                                     <motion.div 
                                         className="absolute z-50 size-full flex flex-col items-center justify-center text-center"
                                         initial={{ scale: 0 }}
                                         animate={{ scale: 1 }}
                                         exit={{ scale: 0 }}
                                         >
-                                        <span className="font-bold text-lg xl:text-2xl bg-black/50 px-4 py-1 rounded-md">Your case has been unlocked.</span>
-                                        <span className="font-bold text-lg xl:text-2xl bg-black/50 px-4 py-1 rounded-md">You must now choose which case to open.</span>
-                                        <span className="font-bold text-lg xl:text-2xl bg-black/50 px-4 py-1 rounded-md">The last case you open is your prize.</span>
-                                        <span className="font-bold text-xl xl:text-3xl bg-black/50 px-4 py-1 rounded-md">Choose wisely.</span>
+                                        <span className="font-bold text-lg xl:text-2xl bg-white/50 dark:bg-black/50 px-4 py-1 rounded-md">Your case has been unlocked.</span>
+                                        <span className="font-bold text-lg xl:text-2xl bg-white/50 dark:bg-black/50 px-4 py-1 rounded-md">You must now choose which case to open.</span>
+                                        <span className="font-bold text-lg xl:text-2xl bg-white/50 dark:bg-black/50 px-4 py-1 rounded-md">The last case you open is your prize.</span>
+                                        <span className="font-bold text-xl xl:text-3xl bg-white/50 dark:bg-black/50 px-4 py-1 rounded-md">Choose wisely.</span>
                                         <div className="mt-4 flex gap-x-2 font-bold text-2xl">
                                             <button
                                                 className="uppercase bg-yellow-400 text-black px-2 hover:cursor-pointer" 
@@ -297,7 +297,7 @@ export default function GameBoard({ caseValues }: GameBoardProps) {
                                 animate={{ scale: 1 }}
                                 exit={{ scale: 0 }}
                                 >
-                                <span className="font-bold text-3xl bg-black/50 px-4 py-1 rounded-md">${formatValue(offer)}</span>
+                                <span className="font-bold text-3xl bg-white/50 dark:bg-black/50 px-4 py-1 rounded-md">${formatValue(offer)}</span>
                                 <div className="mt-4 flex gap-x-2 font-bold text-2xl">
                                     <button
                                         className="uppercase bg-yellow-400 text-black px-2 hover:cursor-pointer" 
